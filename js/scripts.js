@@ -1,4 +1,5 @@
 // Business Logic
+var newDestination;
 
 function Destination(location, landmarks, date, notes){
   this.location = location;
@@ -7,10 +8,12 @@ function Destination(location, landmarks, date, notes){
   this.notes = notes;
 }
 
-Destination.prototype.fullInfo = function () {
+Destination.prototype.fullInfo = function() {
   return this.location + " " + this.landmarks + " " + this.date + " " + this.notes;
-};
+}
 
+
+// User interface
 $(document).ready(function() {
   $("form#new-place").submit(function(event) {
     event.preventDefault();
@@ -20,10 +23,12 @@ $(document).ready(function() {
     var inputtedDate = $("input#newDate").val();
     var inputtedNotes = $("input#newNotes").val();
 
-    var newDestination=new Destination(inputtedLocation, inputtedLandmarks, inputtedDate, inputtedNotes);
+    newDestination = new Destination(inputtedLocation, inputtedLandmarks, inputtedDate, inputtedNotes);
 
-    $("ul#placeList").append("<li><span class='place'>" + newDestination.fullInfo() + "</span></li>");
+
+    $("ul#placeList").append("<li><span class='place'>" + newDestination.location + "</span></li>");
   });
-
-
+  $("#placeList").click(function(){
+    $("#more-info").append("<li><span class='place'>" + newDestination.fullInfo() + "</span></li>");
+  });
 });
